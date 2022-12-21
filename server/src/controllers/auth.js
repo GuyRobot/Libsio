@@ -38,8 +38,7 @@ exports.authenticate = function (req, res) {
             res.json({
               success: true,
               message: 'Token created.',
-              token: token,
-              user: { _id, name, email, profile, detail, role, firstName, lastName, company }
+              user: { _id, name, email, profile, detail, role, firstName, lastName, company, token }
             });
 
           } else {
