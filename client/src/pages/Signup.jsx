@@ -1,7 +1,7 @@
 import React from 'react'
-import { EnhancedForm as Form } from '../components/Form'
+import Form from '../components/SignupForm'
 
-function Login() {
+function Signup() {
     return (
         <div className='w-1/3 mx-auto'>
             <Form />
@@ -9,4 +9,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Signup

@@ -5,19 +5,22 @@ import * as Yup from 'yup';
 import _ from 'lodash';
 import Input from './Input';
 
+import store from '../app/store'
+import { signin } from "../features/auth/authSlice";
+
 export const EnhancedForm = () => (
     <Formik
-        initialValues={{ email: '' }}
+        initialValues={{ email: '', password: '' }}
         validationSchema={Yup.object().shape({
             email: Yup.string()
                 .email('Invalid email address')
                 .required('Email is required!'),
+            password: Yup.string()
+                .required("Password is required!")
         })}
-        onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-            }, 1000);
+        onSubmit={async (values, { setSubmitting }) => {
+            await store.dispatch(signin(values))
+            setSubmitting(false);
         }}
     >
         {({
@@ -36,7 +39,7 @@ export const EnhancedForm = () => (
             const hasErrors = Object.keys(errors).length > 0;
             return (
                 <form className='flex flex-col m-auto mt-8' onSubmit={handleSubmit}>
-                    <label htmlFor='email' class="block text-sm font-medium text-gray-700"> Email </label>
+                    <label htmlFor='email' className="block text-sm font-medium text-gray-700"> Email </label>
                     <Input id="email"
                         name="email"
                         placeholder="Enter your email"
@@ -56,12 +59,32 @@ export const EnhancedForm = () => (
 
                     {errors.email && <div className="text-sm mt-1 text-red-800">{errors.email}</div>}
 
+                    <label htmlFor='password' className="block text-sm font-medium text-gray-700 mt-3"> Password </label>
+                    <Input id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        type="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                            hasChanged ? errors.password ? (
+                                'text-input error'
+                            ) : (
+                                'text-input success'
+                            ) : (
+                                'text-input'
+                            )
+                        } />
+
+                    {errors.password && <div className="text-sm mt-1 text-red-800">{errors.password}</div>}
+
                     <div className='flex justify-between w-full'>
                         <button onClick={handleReset}
-                            disabled={!hasChanged || isSubmitting} type="button" class="bg-indigo-600 py-3 px-6 disabled:bg-indigo-900 rounded-md text-white font-black text-sm my-4">
+                            disabled={!hasChanged || isSubmitting} type="button" className="bg-indigo-600 py-3 px-6 disabled:bg-indigo-900 rounded-md text-white font-black text-sm my-4">
                             Reset
                         </button>
-                        <button disabled={!hasChanged || hasErrors || isSubmitting} type="submit" class="bg-indigo-600 disabled:bg-indigo-900 py-3 px-6 rounded-md text-white font-black text-sm my-4">
+                        <button disabled={!hasChanged || hasErrors || isSubmitting} type="submit" className="bg-indigo-600 disabled:bg-indigo-900 py-3 px-6 rounded-md text-white font-black text-sm my-4">
                             Save
                         </button>
                     </div>

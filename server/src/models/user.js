@@ -15,7 +15,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin", "recruiter"],
+    enum: ["user", "admin"],
     default: "user",
   },
   password: {
@@ -32,48 +32,6 @@ const UserSchema = new Schema({
   status: {
     type: Boolean,
     default: true
-  },
-  posts: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Post",
-    },
-  ],
-  profile: {
-    type: Schema.Types.ObjectId,
-    ref: "Profile",
-  },
-  detail: {
-    type: Schema.Types.ObjectId,
-    ref: "UserDetail",
-  },
-  comments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-  answers: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-  recruitments: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Recruitment",
-    },
-  ],
-  applies: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Apply",
-    },
-  ],
-  company: {
-    type: Schema.Types.ObjectId,
-    ref: "Company",
   },
 });
 

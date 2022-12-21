@@ -20,9 +20,9 @@ const {
   resetPasswordValidator,
 } = require("../helpers/valid");
 
-router.post("/register", validRegister, registerController);
+router.post("/signup", validRegister, registerController);
 router.post("/activation", activationController);
-router.post("/login", validLogin, loginController);
+router.post("/signin", validLogin, loginController);
 router.put("/password/forget", forgotPasswordValidator, forgetController);
 router.put("/password/reset", resetPasswordValidator, resetController);
 router.post('/google/login', googleLoginController)

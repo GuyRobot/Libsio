@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors())
 app.use('/uploads', express.static('uploads'))
-app.use('/', routes);
+app.use('/api/', routes);
 
 const port = process.env.PORT || config.server.port;
 app.listen(port);
