@@ -4,7 +4,7 @@ import api from "../../app/api";
 export const taskSlice = createSlice({
     name: 'auth',
     initialState: {
-        user: {}
+        user: null
     },
     reducers: {
         signuped: (state, action) => {
@@ -12,7 +12,7 @@ export const taskSlice = createSlice({
         },
 
         signined: (state, action) => {
-            state.user.token = action.payload.token
+            state.user = action.payload.user
         }
     }
 })
