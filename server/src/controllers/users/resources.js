@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import response from '../helpers/response';
-import request from '../helpers/request';
-import pagination from '../helpers/pagination';
+import response from '../../helpers/response';
+import request from '../../helpers/request';
+import pagination from '../../helpers/pagination';
 
 import _ from 'underscore';
 
@@ -18,16 +18,14 @@ exports.list = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    const user = req.locals.user;
-    if (!req.currentUser.canEdit(user)) return response.sendForbidden(res);
+    const user = req.currentUser;
 
-    const attrs = _.pick(req.body, "link", "description", "image")
+    const attrs = _.pick(req.body, "title", "link", "description", "image")
     const item = new Resource(attrs);
-    item.owner = user;
+    item.owner = user._id;
     item.save(function (err, item) {
         if (err) return response.sendBadRequest(res, err);
-
-        user.items.push(item);
+        user.resources.push(item);
         user.save(function (err, user) {
             if (err) return response.sendBadRequest(res, err);
             response.sendCreated(res, item);
@@ -44,7 +42,7 @@ exports.read = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    const attrs = _.pick(req.body, "link", "description", "image")
+    const attrs = _.pick(req.body, "title", "link", "description", "image")
     Resource.findOneAndUpdate({ _id: req.params.id }, attrs, { new: true }, function (err, item) {
         if (err) return response.sendBadRequest(res, err);
         if (!req.currentUser.canEdit(item)) return response.sendForbidden(res);

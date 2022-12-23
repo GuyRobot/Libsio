@@ -3,6 +3,10 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 const Schema = mongoose.Schema;
 const ResourceSchema = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
   link: {
     type: String,
     required: true

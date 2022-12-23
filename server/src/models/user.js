@@ -33,6 +33,12 @@ const UserSchema = new Schema({
     type: Boolean,
     default: true
   },
+  resources: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Resource"
+    }
+  ]
 });
 
 UserSchema.set("toJSON", {
@@ -41,18 +47,6 @@ UserSchema.set("toJSON", {
     return ret;
   },
 });
-
-// UserSchema.pre('save', function (next) {
-//   if (!this.isModified('password')) return next();
-
-//   bcrypt.hash(this.password, 10, function (err, hash) {
-//     console.log("err", this);
-//     if (err) return next(err);
-
-//     this.password = hash;
-//     next();
-//   });
-// });
 
 UserSchema.statics.findByToken = function (token, cb) {
   let user = this;

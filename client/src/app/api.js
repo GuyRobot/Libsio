@@ -8,6 +8,42 @@ const api = {
             signup: (payload) => axios.post(url + "signup/", payload),
             signin: (payload) => axios.post(url + "signin/", payload),
         }
+    },
+    resource(token, url = baseUrl + "resources/") {
+        const api = axios.create({
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+        api.interceptors.request.use(function (config) {
+            config.headers.Authorization = token
+            config.headers["x-access-token"] = token
+            return config;
+        });
+        return {
+            create: (payload) => api.post(url, payload)
+        }
+    },
+    upload(token, url = baseUrl + "upload/") {
+        const api = axios.create({
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Accept: 'application/json',
+            },
+        });
+        api.interceptors.request.use(function (config) {
+            config.headers.Authorization = token
+            config.headers["x-access-token"] = token
+            return config;
+        });
+        return {
+            uploadImage: (file) => {
+                const form = new FormData();
+                form.append("image", file);
+                return api.post(url + "image", form)
+            }
+        }
     }
 }
 

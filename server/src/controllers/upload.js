@@ -4,7 +4,6 @@ const sep = require('path').sep
 
 exports.uploadImage = function (req, res) {
     try {
-        console.log("req", req.files);
         if (!req.files) {
             res.send({
                 status: false,

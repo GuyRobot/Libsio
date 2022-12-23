@@ -6,7 +6,8 @@ import resources from './resources'
 
 const routes = express.Router();
 
-routes.use('/:userId/resources', users.loadUser, resources);
+routes.use(auth.verifyToken);
+routes.use('/resources', resources);
 
 routes.route('/:id')
   .all(auth.verifyToken)
