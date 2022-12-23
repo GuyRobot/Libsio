@@ -8,6 +8,8 @@ import Input from './Input';
 import store from '../app/store'
 import { create } from "../features/resource/resourceSlice";
 
+import { toast } from 'react-toastify';
+
 function ResourceForm() {
 
     return (
@@ -28,6 +30,7 @@ function ResourceForm() {
                 setTimeout(() => {
                     store.dispatch(create(values))
                     setSubmitting(false);
+                    toast.success(`Succeed add new resource`)
                 }, 1000);
             }}
         >

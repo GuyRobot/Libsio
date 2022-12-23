@@ -8,8 +8,7 @@ import _ from 'underscore';
 const Resource = mongoose.model('Resource');
 
 exports.list = function (req, res) {
-    if (!req.currentUser.canRead(req.locals.user)) return response.sendForbidden(res);
-    const query = Object.assign({ owner: req.params.userId }, request.getFilteringOptions(req, ['name']));
+    const query = Object.assign({ owner: req.currentUser._id }, request.getFilteringOptions(req, ['name']));
     Resource.paginate(query, request.getRequestOptions(req), function (err, result) {
         if (err) return response.sendNotFound(res);
         pagination.setPaginationHeaders(res, result);

@@ -22,7 +22,8 @@ const api = {
             return config;
         });
         return {
-            create: (payload) => api.post(url, payload)
+            create: (payload) => api.post(url, payload),
+            fetchAll: () => api.get(url),
         }
     },
     upload(token, url = baseUrl + "upload/") {

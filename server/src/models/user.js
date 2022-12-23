@@ -113,7 +113,7 @@ UserSchema.methods = {
   },
 
   equals: function (user) {
-    return this.id == user.id;
+    return this._id == user._id;
   },
 
   canRead: function (object) {

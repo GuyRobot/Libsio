@@ -5,6 +5,7 @@ import App from "../App";
 import Login from "../pages/Signin";
 import Signup from "../pages/Signup";
 import NewResource from "../pages/NewResource";
+import ResourcesPage from "../pages/ResourcesPage";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <Signup />
+    },
+    {
+        path: "/resources",
+        element: <ResourcesPage />
     },
     {
         path: "/resources/new",

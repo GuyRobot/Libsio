@@ -4,11 +4,11 @@ import api from "../../app/api";
 export const resourceSlice = createSlice({
     name: 'resource',
     initialState: {
-
+        resources: []
     },
     reducers: {
         loaded: (state, action) => {
-
+            state.resources = action.payload
         },
         created: (state, action) => {
 
@@ -30,6 +30,16 @@ export const create = (payload) => async (dispatch, getState) => {
         .create(payload)
         .then(res => {
             dispatch(created(res.data))
+        })
+        .catch(err => console.log(err))
+}
+
+export const fetchAll = () => (dispatch, getState) => {
+    const token = getState().auth?.user?.token
+    api.resource(token)
+        .fetchAll()
+        .then(res => {
+            dispatch(loaded(res.data))
         })
         .catch(err => console.log(err))
 }

@@ -2,6 +2,7 @@
   "name": "libsio",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:9000/",
   "dependencies": {
     "@mui/base": "^5.0.0-alpha.110",
     "@reduxjs/toolkit": "^1.9.1",
