@@ -9,12 +9,39 @@ import store from '../app/store'
 import { create } from "../features/resource/resourceSlice";
 
 import { toast } from 'react-toastify';
+import { WithContext as ReactTags } from 'react-tag-input';
 
 function ResourceForm() {
 
+    const [tags, setTags] = React.useState([]);
+
+    const handleDelete = (i, setFieldValue) => {
+        const newTags = tags.filter((tag, index) => index !== i)
+        setTags(newTags);
+        setFieldValue("tags", newTags)
+    };
+
+    const handleAddition = (tag, setFieldValue) => {
+        const newTags = [...tags, tag]
+        setTags(newTags);
+        setFieldValue("tags", newTags)
+    };
+
+    const handleDrag = (tag, currPos, newPos, setFieldValue) => {
+        const newTags = tags.slice();
+
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+
+        // re-render
+        setTags(newTags);
+
+        setFieldValue("tags", newTags)
+    };
+
     return (
         <Formik
-            initialValues={{ title: '', description: '', link: '', image: null }}
+            initialValues={{ title: '', description: '', link: '', image: null, tags: [] }}
             validationSchema={Yup.object().shape({
                 title: Yup.string()
                     .required("Name is required!")
@@ -110,6 +137,23 @@ function ResourceForm() {
                             } />
 
                         {errors.link && <div className="text-sm mt-1 text-red-800">{errors.link}</div>}
+
+                        <div className='mt-4'>
+                            <label className="block text-sm font-medium text-gray-700">
+                                Tags
+                            </label>
+                            <div className='mt-1'>
+                                <ReactTags
+                                    className={'mt-3'}
+                                    tags={tags}
+                                    handleDelete={(tag) => { handleDelete(tag, setFieldValue) }}
+                                    handleAddition={(tag) => { handleAddition(tag, setFieldValue) }}
+                                    handleDrag={(tag, curPos, newPos) => { handleDrag(tag, curPos, newPos, setFieldValue) }}
+                                    inputFieldPosition="bottom"
+                                    autocomplete
+                                />
+                            </div>
+                        </div>
 
                         <div className="mt-4">
                             <label className="block text-sm font-medium text-gray-700">
