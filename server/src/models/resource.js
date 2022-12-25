@@ -18,6 +18,11 @@ const ResourceSchema = new Schema({
   image: {
     type: String
   },
+  tags: [
+    {
+      type: String
+    }
+  ],
   owner: {
     type: Schema.Types.ObjectId,
     ref: 'User',

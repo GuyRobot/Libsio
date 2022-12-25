@@ -55,6 +55,8 @@ function ResourceForm() {
             })}
             onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
+                    // Tags need to be array of string
+                    values.tags = values.tags.map(tag => tag["text"])
                     store.dispatch(create(values))
                     setSubmitting(false);
                     toast.success(`Succeed add new resource`)
