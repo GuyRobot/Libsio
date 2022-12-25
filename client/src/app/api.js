@@ -26,6 +26,23 @@ const api = {
             fetchAll: () => api.get(url),
         }
     },
+    adminCategory(token, url = baseUrl + "admin/categories/") {
+        const api = axios.create({
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+            },
+        });
+        api.interceptors.request.use(function (config) {
+            config.headers.Authorization = token
+            config.headers["x-access-token"] = token
+            return config;
+        });
+        return {
+            create: (payload) => api.post(url, payload),
+            fetchAll: () => api.get(url),
+        }
+    },
     upload(token, url = baseUrl + "upload/") {
         const api = axios.create({
             headers: {
