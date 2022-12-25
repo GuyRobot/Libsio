@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { AiFillEye, AiFillGithub } from "react-icons/ai";
 import { motion } from "framer-motion";
 
-import { images } from '../../constants';
 import { fetchAll } from "./resourceSlice";
 
 import store from '../../app/store'
@@ -19,57 +18,9 @@ const Resources = () => {
         store.dispatch(fetchAll())
     }, [])
 
-    const works = [
-        {
-            title: "Modern UI/UX website",
-            description: "A modern UI/UX Portfolio Website",
-            projectLink: "https://nestify.com",
-            codeLink: "https://github.com",
-            imgUrl: images.about01,
-            tags: [
-                "UI/UX",
-                "All"
-            ]
-        },
-        {
-            title: "Ecommericial Project",
-            description: "A modern UI/UX ECommericial Website",
-            projectLink: "https://nestify.com",
-            codeLink: "https://github.com",
-            imgUrl: images.about02,
-            tags: [
-                "Web App",
-                "All"
-            ]
-        },
-        {
-            title: "Cool Mobile Meditation App",
-            description: "A Mobile Meditation app with Flutter",
-            projectLink: "https://nestify.com",
-            codeLink: "https://github.com",
-            imgUrl: images.about03,
-            tags: [
-                "Mobile App",
-                "All"
-            ]
-        },
-        {
-            title: "Modern Blog website",
-            description: "A modern Blog website with React JS and Node JS",
-            projectLink: "https://nestify.com",
-            codeLink: "https://github.com",
-            imgUrl: images.about04,
-            tags: [
-                "Web App",
-                "React JS",
-                "All"
-            ]
-        }
-    ]
-
     const [activeFilter, setActiveFilter] = useState("All");
     const [animatedCard, setAnimatedCard] = useState({ y: 0, opacity: 1 });
-    const [filteredWorks, setfilteredWorks] = useState(works);
+    const [filteredResources, setfilteredResources] = useState(resources);
 
 
     function handleWorkFilter(item) {
@@ -80,23 +31,23 @@ const Resources = () => {
             setAnimatedCard([{ y: 0, opacity: 1 }]);
 
             if (item === "All") {
-                setfilteredWorks(works);
+                setfilteredResources(resources);
             } else {
-                setfilteredWorks(works.filter((work) => work.tags.includes(item)));
+                setfilteredResources(resources.filter((resource) => resource.tags.includes(item)));
             }
         }, 500)
     }
 
     return (
         <div className='bg-gray-200 py-16'>
-            <h2 className="text-4xl font-extrabold text-center text-black capitalize">Creative <span className='text-blue-700'>Portfolio</span> Section</h2>
+            <h2 className="text-4xl font-extrabold text-center text-black capitalize">Fantasy <span className='text-blue-700'>Icon</span> Resources</h2>
 
             <div className='flex justify-center items-center flex-wrap mt-16 mb-8'>
-                {['UI/UX', 'Web App', "Mobile App", "React JS", "All"].map((item, index) => (
+                {[...(new Set(resources.map(item => item.tags).flat())), "All"].map((item) => (
                     <div
-                        key={index}
+                        key={`filter-${item}`}
                         onClick={() => handleWorkFilter(item)}
-                        className={`py-2 px-4 rounded-lg bg-white text-black font-extrabold cursor-pointer transition-all duration-300 ease-in m-2 hover:bg-blue-700 hover:text-white flex justify-center items-center text-sm text-left leading-6 ${activeFilter === item ? 'bg-blue-700 text-white' : ''}`}
+                        className={`py-2 px-4 rounded-lg bg-white font-extrabold cursor-pointer transition-all duration-300 ease-in m-2 hover:bg-blue-700 hover:text-white flex justify-center items-center text-sm text-left leading-6 ${activeFilter === item ? 'bg-blue-700 text-white' : 'text-black'}`}
                     >
                         {item}
                     </div>
@@ -109,11 +60,11 @@ const Resources = () => {
                 transition={{ duration: 0.5, delayChildren: 0.5 }}
                 className="flex flex-wrap justify-center items-center">
 
-                {resources && resources.map((resource, index) => (
+                {filteredResources && filteredResources.map((resource, index) => (
                     <motion.div
                         whileInView={{ opacity: [0, 1], y: [100, 0] }}
                         transition={{ duration: 0.25 }}
-                        className='w-72 flex-col flex justify-center items-center m-8 p-4 rounded-lg bg-white text-black cursor-pointer transition-all duration-300 ease-in hover:shadow-md 3xl:w-96 lg:p-5 3xl:rounded-xl' key={`${resource.title}-${index}`}>
+                        className='w-72 flex-col flex justify-center items-center m-8 p-4 rounded-lg bg-white text-black cursor-pointer transition-all duration-300 ease-in hover:shadow-md 3xl:w-96 lg:p-5 3xl:rounded-xl' key={`${resource.title}`}>
                         <div className='flex items-center justify-center w-full h-56 3xl:h-80 relative'>
                             <img className='w-full h-full rounded-lg object-cover' src={imgUrlFor(resource.image)} alt={resource.title} />
 
@@ -148,9 +99,11 @@ const Resources = () => {
                             <h4 className='mt-4 leading-6 3xl:mt-12 text-base font-extrabold text-black text-left'>{resource.title}</h4>
                             <p className='text-sm text-left text-gray-600 leading-6 3xl:text-3xl mt-2'>{resource.description}</p>
 
-                            <div className='absolute py-2 px-4 rounded-xl bg-white -top-8 flex justify-center items-center'>
-                                <p className='text-sm text-left text-gray-500 leading-6 3xl:text-3xl'>{resource.title}</p>
-                            </div>
+                            {resource.tags && <>
+                                <div className='absolute py-2 px-4 rounded-xl bg-white -top-8 flex justify-center items-center'>
+                                    <p className='text-sm text-left text-gray-500 leading-6 3xl:text-3xl'>{resource.tags[0]}</p>
+                                </div>
+                            </>}
                         </div>
 
                     </motion.div>
