@@ -9,6 +9,7 @@ import fileUpload from 'express-fileupload'
 // For register schema model
 import User from './models/user';
 import Resource from './models/resource';
+import Category from './models/category';
 
 import config from 'config';
 import db from './db/db';

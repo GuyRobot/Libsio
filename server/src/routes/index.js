@@ -3,6 +3,7 @@ import express from 'express';
 import auth from '../controllers/auth';
 import signup from '../controllers/users';
 import users from './users';
+import admin from './admin';
 import response from '../helpers/response';
 import upload from './upload';
 
@@ -16,7 +17,9 @@ routes.route('/auth/signin')
   .post(auth.authenticate);
 
 routes.use("/upload", signup.loadUser, upload)
+// Users routes
 routes.use("/", signup.loadUser, users)
+routes.use("/admin", admin)
 
 routes.get('/', (req, res) => {
   res.status(200).json({ message: 'Ok' });
