@@ -19,7 +19,7 @@ exports.list = function (req, res) {
 exports.create = function (req, res) {
     const user = req.currentUser;
 
-    const attrs = _.pick(req.body, "title", "link", "description", "image", "tags")
+    const attrs = _.pick(req.body, "title", "link", "description", "image", "tags", "category")
     const item = new Resource(attrs);
     item.owner = user._id;
     item.save(function (err, item) {
@@ -41,7 +41,7 @@ exports.read = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    const attrs = _.pick(req.body, "title", "link", "description", "image", "tags")
+    const attrs = _.pick(req.body, "title", "link", "description", "image", "tags", "category")
     Resource.findOneAndUpdate({ _id: req.params.id }, attrs, { new: true }, function (err, item) {
         if (err) return response.sendBadRequest(res, err);
         if (!req.currentUser.canEdit(item)) return response.sendForbidden(res);

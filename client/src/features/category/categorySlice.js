@@ -21,7 +21,7 @@ export const { loaded, created } = resourceSlice.actions
 
 export const create = (payload) => async (dispatch, getState) => {
     const token = getState().auth?.user?.token
-    api.adminCategory(token)
+    api.category(token)
         .create(payload)
         .then(res => {
             dispatch(created(res.data))
@@ -31,7 +31,7 @@ export const create = (payload) => async (dispatch, getState) => {
 
 export const fetchAll = () => (dispatch, getState) => {
     const token = getState().auth?.user?.token
-    api.adminCategory(token)
+    api.category(token)
         .fetchAll()
         .then(res => {
             dispatch(loaded(res.data))

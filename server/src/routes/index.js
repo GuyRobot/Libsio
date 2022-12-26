@@ -3,6 +3,7 @@ import express from 'express';
 import auth from '../controllers/auth';
 import signup from '../controllers/users';
 import users from './users';
+import publicC from './public';
 import admin from './admin';
 import response from '../helpers/response';
 import upload from './upload';
@@ -18,6 +19,8 @@ routes.route('/auth/signin')
 
 routes.use("/upload", signup.loadUser, upload)
 // Users routes
+// Note, place public routes before, otherwise, it will not work for public routes since of middleware
+routes.use("/public", publicC)
 routes.use("/", signup.loadUser, users)
 routes.use("/admin", admin)
 

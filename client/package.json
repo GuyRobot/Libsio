@@ -21,6 +21,7 @@
     "react-tag-input": "^6.8.1",
     "react-toastify": "^9.1.1",
     "redux-persist": "^6.0.0",
+    "tom-select": "^2.2.2",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

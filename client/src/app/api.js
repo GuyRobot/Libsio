@@ -26,7 +26,7 @@ const api = {
             fetchAll: () => api.get(url),
         }
     },
-    adminCategory(token, url = baseUrl + "admin/categories/") {
+    category(token, url = baseUrl + "public/categories/") {
         const api = axios.create({
             headers: {
                 'Content-Type': 'application/json',

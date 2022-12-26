@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Helper styles for demo
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import _ from 'lodash';
@@ -11,7 +12,24 @@ import { create } from "../features/resource/resourceSlice";
 import { toast } from 'react-toastify';
 import { WithContext as ReactTags } from 'react-tag-input';
 
+import { fetchAll } from "../features/category/categorySlice";
+import { useSelector } from 'react-redux';
+import TomSelect from 'tom-select'
+
 function ResourceForm() {
+
+    let loaded = false;
+
+    useEffect(() => {
+        store.dispatch(fetchAll())
+        if (loaded) return
+        loaded = true;
+        setTimeout(function () {
+            new TomSelect('#select-category', {});
+        }, 0)
+    }, [])
+
+    const categories = useSelector(state => state.category.categories)
 
     const [tags, setTags] = React.useState([]);
 
@@ -41,7 +59,7 @@ function ResourceForm() {
 
     return (
         <Formik
-            initialValues={{ title: '', description: '', link: '', image: null, tags: [] }}
+            initialValues={{ title: '', description: '', link: '', category: null, image: null, tags: [] }}
             validationSchema={Yup.object().shape({
                 title: Yup.string()
                     .required("Name is required!")
@@ -155,6 +173,18 @@ function ResourceForm() {
                                     autocomplete
                                 />
                             </div>
+                        </div>
+
+                        <div>
+                            <label htmlFor='select-category' className="block text-sm font-medium text-gray-700 mt-3"> Category </label>
+                            <select id="select-category" name="category"
+                                placeholder="Select category..." autoComplete="off"
+                                onChange={handleChange}
+                                className="block w-full mt-1 rounded-sm cursor-pointer focus:outline-none">
+                                {categories.map(model =>
+                                    <option key={model._id} value={model._id}>{model.name}</option>
+                                )}
+                            </select>
                         </div>
 
                         <div className="mt-4">
