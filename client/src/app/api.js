@@ -24,6 +24,11 @@ const api = {
         return {
             create: (payload) => api.post(url, payload),
             fetchAll: () => api.get(url),
+            fetchOfCategory: (category) => api.get(url, {
+                params: {
+                    category: category,
+                },
+            }),
         }
     },
     category(token, url = baseUrl + "public/categories/") {
@@ -41,6 +46,7 @@ const api = {
         return {
             create: (payload) => api.post(url, payload),
             fetchAll: () => api.get(url),
+            fetchDetails: () => api.get(url + 'details'),
         }
     },
     upload(token, url = baseUrl + "upload/") {

@@ -7,8 +7,20 @@ import _ from 'underscore';
 
 const Resource = mongoose.model('Resource');
 
-exports.list = function (req, res) {
-    const query = Object.assign({ owner: req.currentUser._id }, request.getFilteringOptions(req, ['name']));
+exports.list = async function (req, res) {
+    const queryRefs = [{ name: "category", model: "Category" }];
+    let query = Object.assign({ owner: req.currentUser._id }, request.getFilteringOptions(req, ['name']));
+    for (const ref of queryRefs) {
+        if (ref["name"] in req.query) {
+            query = await Resource.findByRef(
+                ref["model"],
+                ref["name"],
+                query,
+                req.query[ref["name"]]
+            );
+        }
+    }
+
     Resource.paginate(query, request.getRequestOptions(req), function (err, result) {
         if (err) return response.sendNotFound(res);
         pagination.setPaginationHeaders(res, result);
