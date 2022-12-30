@@ -31,7 +31,7 @@ const Resources = () => {
         }
 
         setfilteredResources(resources)
-    }, [searchParams, resources])
+    }, [searchParams])
 
     const [activeFilter, setActiveFilter] = useState("All");
     const [animatedCard, setAnimatedCard] = useState({ y: 0, opacity: 1 });
