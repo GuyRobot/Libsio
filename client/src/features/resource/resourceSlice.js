@@ -11,7 +11,7 @@ export const resourceSlice = createSlice({
     },
     reducers: {
         loaded: (state, action) => {
-            state.resources = action.payload
+            state.category["all"] = action.payload
         },
         created: (state, action) => {
 

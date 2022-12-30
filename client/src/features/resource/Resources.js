@@ -13,12 +13,15 @@ import Sidebar from '../../components/Sidebar';
 
 import { useSearchParams } from "react-router-dom";
 
+const getResourcesByCategory = state => category => {
+    return state.resource.category[category]
+};
+
 const Resources = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    searchParams.get("__firebase_request_key")
 
-    const resources = useSelector(state => (searchParams.get("category") === null) ? state.resource.resources : state.resource.category[searchParams.get('category')])
+    const resources = useSelector(getResourcesByCategory)(searchParams.get('category') ?? "all")
 
     useEffect(() => {
         if (searchParams.get("category") !== null) {
@@ -26,7 +29,9 @@ const Resources = () => {
         } else {
             store.dispatch(fetchAll())
         }
-    }, [searchParams])
+
+        setfilteredResources(resources)
+    }, [searchParams, resources])
 
     const [activeFilter, setActiveFilter] = useState("All");
     const [animatedCard, setAnimatedCard] = useState({ y: 0, opacity: 1 });
@@ -51,11 +56,11 @@ const Resources = () => {
     return (
         <div className='flex'>
             <Sidebar />
-            <div className='bg-gray-200 py-16'>
+            <div className='bg-gray-200 py-16 flex-grow'>
                 <h2 className="text-4xl font-extrabold text-center text-black capitalize">Fantasy <span className='text-blue-700'>Icon</span> Resources</h2>
 
                 <div className='flex justify-center items-center flex-wrap mt-16 mb-8'>
-                    {[...(new Set(resources.map(item => item.tags).flat())), "All"].map((item) => (
+                    {resources && [...(new Set(resources.map(item => item.tags).flat())), "All"].map((item) => (
                         <div
                             key={`filter-${item}`}
                             onClick={() => handleWorkFilter(item)}
