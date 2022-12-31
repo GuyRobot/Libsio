@@ -1,5 +1,5 @@
 import React from 'react'
-import Resources from '../features/resource/Resources'
+import Resources from '../features/public/Resources'
 
 function ResourcesPage() {
     return (

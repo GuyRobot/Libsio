@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import authReducer from "../features/auth/authSlice";
 import resourceReducer from "../features/resource/resourceSlice";
 import categoryReducer from "../features/category/categorySlice";
+import publicReducer from "../features/public/publicSlice";
 
 import storage from 'redux-persist/lib/storage';
 import {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   resource: resourceReducer,
   category: categoryReducer,
+  public: publicReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

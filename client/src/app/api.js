@@ -68,7 +68,18 @@ const api = {
                 return api.post(url + "image", form)
             }
         }
-    }
+    },
+    public(url = baseUrl + "public/") {
+        return {
+            fetchResources: (payload) => axios.get(url + "resources/", payload),
+            fetchCategories: (payload) => axios.get(url + "categories/details", payload),
+            fetchResourcesOfCategory: (category) => axios.get(url + "resources/", {
+                params: {
+                    category: category,
+                },
+            }),
+        }
+    },
 }
 
 export default api
