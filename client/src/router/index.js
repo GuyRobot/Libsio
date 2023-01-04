@@ -8,6 +8,7 @@ import Signup from "../pages/Signup";
 import NewResource from "../pages/NewResource";
 import ResourcesPage from "../pages/ResourcesPage";
 import NewCategoryPage from "../pages/admin/category/NewCategoryPage";
+import UserResourcesPage from "../pages/user/resource/UserResourcePage";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,26 @@ const router = createBrowserRouter([
                     {
                         path: "new",
                         element: <NewCategoryPage />
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        path: "/user",
+        element: <><Outlet></Outlet></>,
+        children: [
+            {
+                path: "resources",
+                element: <><Outlet></Outlet></>,
+                children: [
+                    {
+                        path: "new",
+                        element: <NewResource />
+                    },
+                    {
+                        path: "",
+                        element: <UserResourcesPage />
                     }
                 ]
             }
