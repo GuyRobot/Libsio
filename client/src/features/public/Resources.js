@@ -14,7 +14,7 @@ import Sidebar from '../../components/Sidebar';
 import { useSearchParams } from "react-router-dom";
 
 const getResourcesByCategory = state => category => {
-    return state.resource.category[category]
+    return state.public.category[category]
 };
 
 const Resources = () => {
