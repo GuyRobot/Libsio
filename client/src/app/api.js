@@ -80,6 +80,23 @@ const api = {
             }),
         }
     },
+    admin(token, url = baseUrl + "admin/") {
+        const api = axios.create({
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Accept: 'application/json',
+            },
+        });
+        api.interceptors.request.use(function (config) {
+            config.headers.Authorization = token
+            config.headers["x-access-token"] = token
+            return config;
+        });
+        return {
+            fetchResources: () => api.get(url + "resources/"),
+            fetchCategories: () => api.get(url + "categories/"),
+        }
+    },
 }
 
 export default api

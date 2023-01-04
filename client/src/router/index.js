@@ -9,6 +9,7 @@ import NewResource from "../pages/NewResource";
 import ResourcesPage from "../pages/ResourcesPage";
 import NewCategoryPage from "../pages/admin/category/NewCategoryPage";
 import UserResourcesPage from "../pages/user/resource/UserResourcePage";
+import AdminResourcePage from "../pages/admin/resource/AdminResourcePage";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,20 @@ const router = createBrowserRouter([
                     {
                         path: "new",
                         element: <NewCategoryPage />
+                    }
+                ]
+            },
+            {
+                path: "resources",
+                element: <><Outlet></Outlet></>,
+                children: [
+                    {
+                        path: "new",
+                        element: <NewCategoryPage />
+                    },
+                    {
+                        path: "",
+                        element: <AdminResourcePage />
                     }
                 ]
             }
