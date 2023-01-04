@@ -1,14 +1,27 @@
 import React, { useEffect } from "react";
 
-import { fetchResources } from "./adminResourceSlice";
+import { fetchResources, approveResource } from "./adminResourceSlice";
 
 import store from "../../../app/store";
 import { useSelector } from "react-redux";
+import { showConfirmPopup } from "../../../utils/utils";
 
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const AdminResources = () => {
-  const resources = useSelector(state => state.adminResource.resources);
+  const resources = useSelector((state) => state.adminResource.resources);
+
+  const approve = function (id) {
+    showConfirmPopup(
+      function () {
+        store.dispatch(approveResource(id));
+        toast.success("Succeed approve resource!")
+      },
+      "Do you really want to approve?",
+      "Approve"
+    );
+  };
 
   useEffect(() => {
     store.dispatch(fetchResources());
@@ -184,22 +197,24 @@ const AdminResources = () => {
                                     {resource.description}
                                   </td>
                                   <td className="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                      className="
-                                px-2
-                                inline-flex
-                                text-xs
-                                leading-5
-                                font-semibold
-                                rounded-full
-                                bg-green-100
-                                text-green-800
-                              "
-                                    >
-                                      Active
-                                    </span>
-                                    <span
-                                      className="
+                                    {resource.status ? (
+                                      <span
+                                        className="
+                                        px-2
+                                        inline-flex
+                                        text-xs
+                                        leading-5
+                                        font-semibold
+                                        rounded-full
+                                        bg-green-100
+                                        text-green-800
+                                        "
+                                      >
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <span
+                                        className="
                                 px-2
                                 inline-flex
                                 text-xs
@@ -208,10 +223,11 @@ const AdminResources = () => {
                                 rounded-full
                                 bg-red-100
                                 text-red-800
-                              "
-                                    >
-                                      Pending
-                                    </span>
+                                "
+                                      >
+                                        Pending
+                                      </span>
+                                    )}
                                   </td>
                                   <td
                                     className="
@@ -267,7 +283,7 @@ const AdminResources = () => {
                                 text-gray-400
                               "
                                       type="button"
-                                      click="approveModel(recruitment._id)"
+                                      onClick={() => approve(resource._id)}
                                     >
                                       <svg
                                         viewBox="0 0 512 512"
