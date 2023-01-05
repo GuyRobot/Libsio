@@ -1,7 +1,4 @@
-import {
-    Outlet,
-    createBrowserRouter,
-} from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Login from "../pages/Signin";
 import Signup from "../pages/Signup";
@@ -10,78 +7,110 @@ import ResourcesPage from "../pages/ResourcesPage";
 import NewCategoryPage from "../pages/admin/category/NewCategoryPage";
 import UserResourcesPage from "../pages/user/resource/UserResourcePage";
 import AdminResourcePage from "../pages/admin/resource/AdminResourcePage";
+import Nav from "../components/Nav";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
+  {
+    path: "",
+    element: (
+      <div>
+        <Nav></Nav>
+        <Outlet></Outlet>
+      </div>
+    ),
+    children: [
+      {
+        path: "",
         element: <App />,
-    },
-    {
+      },
+      {
         path: "/signin",
-        element: <Login />
-    },
-    {
+        element: <Login />,
+      },
+      {
         path: "/signup",
-        element: <Signup />
-    },
-    {
+        element: <Signup />,
+      },
+      {
         path: "/resources",
-        element: <ResourcesPage />
-    },
-    {
+        element: <ResourcesPage />,
+      },
+      {
         path: "/resources/new",
-        element: <NewResource />
-    },
-    {
+        element: <NewResource />,
+      },
+      {
         path: "/admin",
-        element: <><Outlet></Outlet></>,
+        element: (
+          <>
+            <Outlet></Outlet>
+          </>
+        ),
         children: [
-            {
-                path: "categories",
-                element: <><Outlet></Outlet></>,
-                children: [
-                    {
-                        path: "new",
-                        element: <NewCategoryPage />
-                    }
-                ]
-            },
-            {
-                path: "resources",
-                element: <><Outlet></Outlet></>,
-                children: [
-                    {
-                        path: "new",
-                        element: <NewCategoryPage />
-                    },
-                    {
-                        path: "",
-                        element: <AdminResourcePage />
-                    }
-                ]
-            }
-        ]
-    },
-    {
+          {
+            path: "categories",
+            element: (
+              <>
+                <Outlet></Outlet>
+              </>
+            ),
+            children: [
+              {
+                path: "new",
+                element: <NewCategoryPage />,
+              },
+            ],
+          },
+          {
+            path: "resources",
+            element: (
+              <>
+                <Outlet></Outlet>
+              </>
+            ),
+            children: [
+              {
+                path: "new",
+                element: <NewCategoryPage />,
+              },
+              {
+                path: "",
+                element: <AdminResourcePage />,
+              },
+            ],
+          },
+        ],
+      },
+      {
         path: "/user",
-        element: <><Outlet></Outlet></>,
+        element: (
+          <>
+            <Outlet></Outlet>
+          </>
+        ),
         children: [
-            {
-                path: "resources",
-                element: <><Outlet></Outlet></>,
-                children: [
-                    {
-                        path: "new",
-                        element: <NewResource />
-                    },
-                    {
-                        path: "",
-                        element: <UserResourcesPage />
-                    }
-                ]
-            }
-        ]
-    },
+          {
+            path: "resources",
+            element: (
+              <>
+                <Outlet></Outlet>
+              </>
+            ),
+            children: [
+              {
+                path: "new",
+                element: <NewResource />,
+              },
+              {
+                path: "",
+                element: <UserResourcesPage />,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ]);
 
-export default router
+export default router;
