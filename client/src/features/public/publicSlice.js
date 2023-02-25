@@ -4,20 +4,17 @@ import api from "../../app/api";
 export const resourceSlice = createSlice({
     name: 'public',
     initialState: {
-        resources: [],
-        category: {
-
-        }
+        resources: {},
     },
     reducers: {
         loaded: (state, action) => {
-            state.category["all"] = action.payload
+            state.resources["all"] = action.payload
         },
         created: (state, action) => {
 
         },
         loadedOfCategory: (state, action) => {
-            state.category[action.payload.category] = action.payload.data
+            state.resources[action.payload.category] = action.payload.data
         }
     }
 })
