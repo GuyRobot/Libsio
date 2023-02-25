@@ -1,5 +1,4 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import App from "../App";
 import Login from "../pages/Signin";
 import Signup from "../pages/Signup";
 import NewResource from "../pages/NewResource";
@@ -21,7 +20,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <App />,
+        element: <ResourcesPage />,
       },
       {
         path: "/signin",
@@ -30,10 +29,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
-      },
-      {
-        path: "/resources",
-        element: <ResourcesPage />,
       },
       {
         path: "/resources/new",

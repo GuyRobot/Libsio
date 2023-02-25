@@ -176,7 +176,7 @@ function Nav() {
                   </Link>
 
                   <Link
-                    to="/resources"
+                    to="/user/resources"
                     className="
                     inline-block
                     py-4
