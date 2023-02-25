@@ -40,7 +40,7 @@ export const create = (payload) => async (dispatch, getState) => {
         .catch(err => console.log(err))
 }
 
-export const fetchAll = () => (dispatch, getState) => {
+export const fetchResources = () => (dispatch, getState) => {
     const token = getState().auth?.user?.token
     api.resource(token)
         .fetchAll()
