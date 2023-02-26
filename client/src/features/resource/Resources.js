@@ -18,7 +18,7 @@ const getResourcesByCategory = (state) => (category) => {
 };
 
 const Resources = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const resources = useSelector(getResourcesByCategory)(
     searchParams.get("category") ?? "all"
@@ -27,9 +27,7 @@ const Resources = () => {
   useEffect(() => {
     const update = async () => {
       if (searchParams.get("category") !== null) {
-        await store.dispatch(
-          fetchOfCategory(searchParams.get("category"))
-        );
+        await store.dispatch(fetchOfCategory(searchParams.get("category")));
       } else {
         await store.dispatch(fetchResources());
       }
@@ -58,7 +56,7 @@ const Resources = () => {
           Fantasy <span className="text-blue-700">Icon</span> Resources
         </h2>
 
-        <div className="flex justify-center items-center flex-wrap mt-16 mb-8">
+        <div className="flex justify-center items-center flex-wrap mt-16 mb-8 w-9/12 mx-auto">
           {resources &&
             [...new Set(resources.map((item) => item.tags).flat()), "All"].map(
               (item) => (
@@ -84,7 +82,12 @@ const Resources = () => {
         >
           {resources &&
             resources
-              .filter((resource) => !activeFilter || activeFilter === "All" || resource.tags.includes(activeFilter))
+              .filter(
+                (resource) =>
+                  !activeFilter ||
+                  activeFilter === "All" ||
+                  resource.tags.includes(activeFilter)
+              )
               .map((resource, index) => (
                 <motion.div
                   whileInView={{ opacity: [0, 1], y: [100, 0] }}

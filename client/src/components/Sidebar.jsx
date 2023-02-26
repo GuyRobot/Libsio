@@ -44,7 +44,7 @@ function Sidebar() {
                                             </div>
 
                                             <div className="ml-3 text-sm">
-                                                <p className="text-gray-500 uppercase group-hover:text-indigo-600">{obj.category?.name ?? "Uncategorized"}</p>
+                                                <p className="text-gray-500 capitalize group-hover:text-indigo-600">{obj.category?.name ?? "Uncategorized"}</p>
                                             </div>
                                         </div>
                                         <div className="

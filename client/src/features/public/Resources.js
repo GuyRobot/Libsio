@@ -18,7 +18,7 @@ const getResourcesByCategory = (state) => (category) => {
 };
 
 const Resources = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const resources = useSelector(getResourcesByCategory)(
     searchParams.get("category") ?? "all"
@@ -58,7 +58,7 @@ const Resources = () => {
           Fantasy <span className="text-blue-700">Icon</span> Resources
         </h2>
 
-        <div className="flex justify-center items-center flex-wrap mt-16 mb-8">
+        <div className="flex justify-center items-center flex-wrap mt-16 mb-8 w-9/12 mx-auto">
           {resources &&
             [...new Set(resources.map((item) => item.tags).flat()), "All"].map(
               (item) => (
