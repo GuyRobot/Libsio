@@ -17,12 +17,18 @@ const getResourcesByCategory = (state) => (category) => {
   return state.public.resources[category];
 };
 
+const getSearchQuery = () => (state) => {
+  return state.share.searchQuery;
+};
+
 const Resources = () => {
   const [searchParams] = useSearchParams();
 
   const resources = useSelector(getResourcesByCategory)(
     searchParams.get("category") ?? "all"
   );
+
+  const searchQuery = useSelector(getSearchQuery());
 
   useEffect(() => {
     const update = async () => {
@@ -84,7 +90,16 @@ const Resources = () => {
         >
           {resources &&
             resources
-              .filter((resource) => !activeFilter || activeFilter === "All" || resource.tags.includes(activeFilter))
+              .filter(
+                (resource) =>
+                  (!activeFilter ||
+                    activeFilter === "All" ||
+                    resource.tags.includes(activeFilter)) &&
+                  (!searchQuery ||
+                    resource.title
+                      ?.toLowerCase()
+                      ?.includes(searchQuery.toLowerCase()))
+              )
               .map((resource, index) => (
                 <motion.div
                   whileInView={{ opacity: [0, 1], y: [100, 0] }}

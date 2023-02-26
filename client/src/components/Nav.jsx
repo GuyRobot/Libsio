@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { search } from "../features/share/shareSlice";
 
 function Nav() {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [showDropDown, setShowDropDown] = useState(false);
+
+  const doSearch = (e) => {
+    dispatch(search(searchQuery));
+  };
 
   return (
     <div>
@@ -127,6 +134,13 @@ function Nav() {
                   type="text"
                   autoFocus
                   placeholder="Type to search"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={searchQuery}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      doSearch();
+                    }
+                  }}
                 />
                 <div
                   className="
@@ -146,6 +160,7 @@ function Nav() {
                 "
                 >
                   <span
+                    onClick={doSearch}
                     className="
                     material-icons
                     text-gray-500

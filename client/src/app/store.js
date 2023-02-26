@@ -4,6 +4,7 @@ import resourceReducer from "../features/resource/resourceSlice";
 import adminResourceReducer from "../features/admin/resource/adminResourceSlice";
 import categoryReducer from "../features/category/categorySlice";
 import publicReducer from "../features/public/publicSlice";
+import shareReducer from "../features/share/shareSlice";
 
 import storage from "redux-persist/lib/storage";
 import {
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   public: publicReducer,
   adminResource: adminResourceReducer,
+  share: shareReducer
 });
 
 const store = configureStore({
