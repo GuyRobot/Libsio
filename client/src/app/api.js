@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:9000/api/"
+const baseUrl = `${process.env.REACT_APP_SERVER_URL}/api/`
 
 const api = {
     auth(url = baseUrl + "auth/") {
