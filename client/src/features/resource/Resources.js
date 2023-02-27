@@ -59,7 +59,7 @@ const Resources = () => {
       <Sidebar />
       <div className="bg-gray-200 py-16 flex-grow">
         <h2 className="text-4xl font-extrabold text-center text-black capitalize">
-          Fantasy <span className="text-blue-700">Icon</span> Resources
+          <span className="text-blue-700">{searchParams.get("category")?.replaceAll("-", " ")}</span>{" "}
         </h2>
 
         <div className="flex justify-center items-center flex-wrap mt-16 mb-8 w-9/12 mx-auto">
