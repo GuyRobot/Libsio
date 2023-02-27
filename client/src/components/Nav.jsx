@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { search } from "../features/share/shareSlice";
+import { logout } from "../features/auth/authSlice";
+import { toast } from "react-toastify";
 
 function Nav() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
-
-  const [showDropDown, setShowDropDown] = useState(false);
+  const navigate = useNavigate()
 
   const doSearch = (e) => {
     dispatch(search(searchQuery));
+  };
+
+  const doLogout = () => {
+    dispatch(logout());
+    toast.success(`Success logout! See you later`);
+    navigate("/")
   };
 
   return (
@@ -216,165 +223,20 @@ function Nav() {
 
             {user ? (
               <div>
-                <div
+                <button
+                  onClick={doLogout}
                   className="
-              absolute
-              inset-y-0
-              right-0
-              flex
-              items-center
-              pr-2
-              sm:static sm:inset-auto sm:ml-6 sm:pr-0
-            "
-                  v-if="isAuth"
+                  px-8
+                  py-3
+                  bg-indigo-600
+                  hover:bg-indigo-800
+                  rounded-full
+                  text-xs text-white
+                  font-black
+                "
                 >
-                  <div className="bg-gray-50 rounded-xl border border-gray-200 mr-8">
-                    <button
-                      type="button"
-                      className="
-                  flex
-                  items-center
-                  text-gray-400
-                  hover:text-indigo-500
-                  w-8
-                  h-8
-                  justify-center
-                  relative
-                "
-                    >
-                      <span className="sr-only">View notifications</span>
-                      {/* <!-- Heroicon name: outline/bell --> */}
-                      <span
-                        className="
-                    w-[6px]
-                    h-[6px]
-                    rounded-full
-                    bg-indigo-600
-                    absolute
-                    top-[-0.125rem]
-                    right-[-0.125rem]
-                  "
-                      ></span>
-                      <span className="material-icons text-base relative">
-                        notifications
-                      </span>
-                    </button>
-                  </div>
-                  <div className="z-50" click="showDropdown = !showDropdown">
-                    <button
-                      type="button"
-                      className="
-                  flex
-                  items-center
-                  text-gray-400
-                  hover:text-indigo-500
-                  w-6
-                  h-6
-                  justify-center
-                  relative
-                "
-                    >
-                      <span className="material-icons text-base relative">
-                        {" "}
-                        person{" "}
-                      </span>
-                    </button>
-                  </div>
-                  {/* <!-- Profile dropdown --> */}
-                  <div className="ml-3 relative">
-                    {/* <!--
-                          Dropdown menu, show/hide based on menu state.
-
-                          Entering: "transition ease-out duration-100"
-                            From: "transform opacity-0 scale-95"
-                            To: "transform opacity-100 scale-100"
-                          Leaving: "transition ease-in duration-75"
-                            From: "transform opacity-100 scale-100"
-                            To: "transform opacity-0 scale-95"
-                        --> */}
-
-                    {showDropDown && (
-                      <div
-                        id="dropdown"
-                        className="
-                  origin-top-right
-                  transition-all
-                  duration-200
-                  absolute
-                  right-0
-                  mt-2
-                  w-56
-                  rounded-md
-                  shadow-lg
-                  bg-white
-                  ring-1 ring-black ring-opacity-5
-                  focus:outline-none
-                "
-                        role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="menu-button"
-                        tabIndex="-1"
-                        v-if="showDropdown"
-                      >
-                        <div className="py-1" role="none">
-                          <a
-                            to="{ name: 'profile' }"
-                            href=""
-                            className="
-                      text-gray-700
-                      block
-                      px-4
-                      py-2
-                      text-sm
-                      hover:text-indigo-700
-                    "
-                            role="menuitem"
-                            tabIndex="-1"
-                            id="menu-item-0"
-                          >
-                            Account settings
-                          </a>
-                          <a
-                            to="{ name: 'profile' }"
-                            className="
-                      text-gray-700
-                      block
-                      px-4
-                      py-2
-                      text-sm
-                      hover:text-indigo-700
-                    "
-                            role="menuitem"
-                            tabIndex="-1"
-                            id="menu-item-1"
-                          >
-                            Dashboard
-                          </a>
-                          <form method="POST" action="" role="none">
-                            <button
-                              type="submit"
-                              className="
-                        text-gray-700
-                        hover:text-indigo-700
-                        block
-                        w-full
-                        text-left
-                        px-4
-                        py-2
-                        text-sm
-                      "
-                              role="menuitem"
-                              tabIndex="-1"
-                              id="menu-item-3"
-                            >
-                              Sign out
-                            </button>
-                          </form>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                  Logout
+                </button>
               </div>
             ) : (
               <div>
