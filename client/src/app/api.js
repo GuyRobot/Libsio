@@ -95,7 +95,8 @@ const api = {
         return {
             fetchResources: () => api.get(url + "resources/"),
             fetchCategories: () => api.get(url + "categories/"),
-            approveResource: (id) => api.put(url + `resources/${id}/approve`)
+            approveResource: (id) => api.put(url + `resources/${id}/approve`),
+            createCategory: (payload) => api.post(url + "categories/", payload),
         }
     },
 }
