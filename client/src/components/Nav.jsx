@@ -378,7 +378,7 @@ function Nav() {
               </div>
             ) : (
               <div>
-                <a to="{ name: 'register' }">
+                <Link to="/signup">
                   <button
                     className="
                   px-8
@@ -390,10 +390,10 @@ function Nav() {
                   font-black
                 "
                   >
-                    Register
+                    Sign up
                   </button>
-                </a>
-                <a to="{ name: 'login' }">
+                </Link>
+                <Link to="/signin">
                   <button
                     className="
                   ml-4
@@ -406,9 +406,9 @@ function Nav() {
                   font-black
                 "
                   >
-                    Login
+                    Sign in
                   </button>
-                </a>
+                </Link>
               </div>
             )}
           </div>
