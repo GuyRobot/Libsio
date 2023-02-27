@@ -1,8 +1,8 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Signin";
 import Signup from "../pages/Signup";
-import NewResource from "../pages/NewResource";
 import ResourcesPage from "../pages/ResourcesPage";
+import NewResource from "../pages/admin/resource/NewResource";
 import NewCategoryPage from "../pages/admin/category/NewCategoryPage";
 import UserResourcesPage from "../pages/user/resource/UserResourcePage";
 import AdminResourcePage from "../pages/admin/resource/AdminResourcePage";

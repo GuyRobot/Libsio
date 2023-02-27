@@ -1,5 +1,6 @@
 import React from 'react'
 import Resources from '../../../features/resource/Resources'
+import ProtectedRoute from '../../../utils/ProtectedRoute'
 
 function UserResourcesPage() {
     return (
@@ -9,4 +10,4 @@ function UserResourcesPage() {
     )
 }
 
-export default UserResourcesPage
+export default ProtectedRoute(UserResourcesPage)

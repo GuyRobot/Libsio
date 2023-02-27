@@ -1,8 +1,8 @@
 import React from 'react'
-import Form from '../../../components/admin/CategoryForm'
+import Form from '../../../components/ResourceForm'
 import ProtectedRoute from '../../../utils/ProtectedRoute'
 
-function NewCategoryPage() {
+function NewResource() {
     return (
         <div className='w-1/3 mx-auto'>
             <Form />
@@ -10,4 +10,4 @@ function NewCategoryPage() {
     )
 }
 
-export default ProtectedRoute(NewCategoryPage, true)
+export default ProtectedRoute(NewResource, true)

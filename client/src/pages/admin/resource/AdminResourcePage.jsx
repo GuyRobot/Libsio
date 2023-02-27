@@ -1,5 +1,6 @@
 import React from 'react'
 import Resources from '../../../features/admin/resource/AdminResources'
+import ProtectedRoute from '../../../utils/ProtectedRoute'
 
 function AdminResourcePage() {
     return (
@@ -9,4 +10,4 @@ function AdminResourcePage() {
     )
 }
 
-export default AdminResourcePage
+export default ProtectedRoute(AdminResourcePage, true)
